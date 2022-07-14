@@ -3,10 +3,14 @@ package pagesLocators;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import resources.BasePage;
 
-public class TextBoxPage {
+import java.util.ArrayList;
+import java.util.List;
+
+public class TextBoxPage extends BasePage {
     //attributes Class:
-    //form field:
+    //locators for  field:
     public WebDriver driver;
     private By FULL_NAME = By.cssSelector("input[placeholder*='Full']");
     private By EMAIL = By.cssSelector("input[placeholder*='name@']");
@@ -23,8 +27,6 @@ public class TextBoxPage {
     public TextBoxPage(WebDriver driver) {
         this.driver = driver;
     }
-
-
 
     //methods class getters:
     public  WebElement getFULL_NAME() {
@@ -69,6 +71,20 @@ public class TextBoxPage {
         this.getCURRENT_ADDRESS().sendKeys("sadf");
         this.getPermanent_Address().sendKeys("sad");
         this.getSUBMIT_BUTTON().click();
-        Thread.sleep(5000);
+        Thread.sleep(2000);
     }
+    public void verifyFilledFormsValues() {
+        List<String> lstVals = new ArrayList<>();
+        lstVals.add(super.splitByСolonTakeSecondElement(super.elementIsPresent(CREATED_FULL_NAME).getText()));
+        lstVals.add(super.splitByСolonTakeSecondElement(super.elementIsPresent(CREATED_EMAIL).getText()));
+        lstVals.add(super.splitByСolonTakeSecondElement(super.elementIsPresent(CREATED_CURRENT_ADDRESS).getText()));
+        lstVals.add(super.splitByСolonTakeSecondElement(super.elementIsPresent(CREATED_Permanent_Address).getText()));
+        for (String item : lstVals) {
+            System.out.println(item);
+        }
+
+
+    }
+
+
 }

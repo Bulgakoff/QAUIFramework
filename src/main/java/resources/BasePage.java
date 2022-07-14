@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -87,6 +88,14 @@ public class BasePage {
 
     public void goToElement(WebElement element) {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+    }
+
+    public String splitByСolonTakeSecondElement(String strText) {
+        List<String> listValue = new ArrayList<>();
+        for (String retval : strText.split(":")) {
+            listValue.add(retval);
+        }
+        return listValue.get(1);
     }
 
 

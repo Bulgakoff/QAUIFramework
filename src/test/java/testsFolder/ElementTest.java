@@ -31,6 +31,7 @@ public class ElementTest extends BasePage {
         driver.get(properties.getProperty("url"));
         txp = new TextBoxPage(driver);
         txp.fillAllFieldsApi();
+        txp.verifyFilledFormsValues();
 
     }
 
