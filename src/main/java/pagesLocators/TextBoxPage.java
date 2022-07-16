@@ -1,5 +1,6 @@
 package pagesLocators;
 
+import com.github.javafaker.Faker;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -7,6 +8,7 @@ import resources.BasePage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class TextBoxPage extends BasePage {
     //attributes Class:
@@ -29,61 +31,93 @@ public class TextBoxPage extends BasePage {
     }
 
     //methods class getters:
-    public  WebElement getFULL_NAME() {
-         return  driver.findElement(FULL_NAME);
+    public WebElement getFULL_NAME() {
+        return driver.findElement(FULL_NAME);
     }
 
-    public  WebElement getEMAIL() {
-         return  driver.findElement(EMAIL);
+    public WebElement getEMAIL() {
+        return driver.findElement(EMAIL);
     }
 
-    public  WebElement getCURRENT_ADDRESS() {
-         return  driver.findElement(CURRENT_ADDRESS);
+    public WebElement getCURRENT_ADDRESS() {
+        return driver.findElement(CURRENT_ADDRESS);
     }
 
-    public  WebElement getPermanent_Address() {
-         return  driver.findElement(Permanent_Address);
+    public WebElement getPermanent_Address() {
+        return driver.findElement(Permanent_Address);
     }
 
-    public  WebElement getSUBMIT_BUTTON() {
-         return  driver.findElement(SUBMIT_BUTTON);
+    public WebElement getSUBMIT_BUTTON() {
+        return driver.findElement(SUBMIT_BUTTON);
     }
 
-    public  WebElement getCREATED_FULL_NAME() {
-         return  driver.findElement(CREATED_FULL_NAME);
+    public WebElement getCREATED_FULL_NAME() {
+        return driver.findElement(CREATED_FULL_NAME);
     }
 
-    public  WebElement getCREATED_EMAIL() {
-         return  driver.findElement(CREATED_EMAIL);
+    public WebElement getCREATED_EMAIL() {
+        return driver.findElement(CREATED_EMAIL);
     }
 
-    public  WebElement getCREATED_CURRENT_ADDRESS() {
-         return  driver.findElement(CREATED_CURRENT_ADDRESS);
+    public WebElement getCREATED_CURRENT_ADDRESS() {
+        return driver.findElement(CREATED_CURRENT_ADDRESS);
     }
 
-    public  WebElement getCREATED_Permanent_Address() {
-         return  driver.findElement(CREATED_Permanent_Address);
+    public WebElement getCREATED_Permanent_Address() {
+        return driver.findElement(CREATED_Permanent_Address);
     }
+
     //others methods:
-    public void fillAllFieldsApi() throws InterruptedException {
-        this.getFULL_NAME().sendKeys("sa");
-        this.getEMAIL().sendKeys("sadf@sdgfs.ru");
-        this.getCURRENT_ADDRESS().sendKeys("sadf");
-        this.getPermanent_Address().sendKeys("sad");
+    public List<String> fillAllFieldsApi() throws InterruptedException {
+        // Настройка языка, регион
+        Locale locale = new Locale("ru", "RU");
+        // Создать объект
+        Faker faker = new Faker(locale);
+        List<String> lstEnteredValues = new ArrayList<>();
+
+        String fullName = faker.name().fullName();
+        String email = "faker@email.ru";
+        String currentAddress = faker.address().fullAddress();
+        String permanentAddress = faker.address().fullAddress();
+        lstEnteredValues.add(fullName);
+        lstEnteredValues.add(email);
+        lstEnteredValues.add(currentAddress);
+        lstEnteredValues.add(permanentAddress);
+
+
+        this.getFULL_NAME().sendKeys(fullName);
+        this.getEMAIL().sendKeys(email);
+        this.getCURRENT_ADDRESS().sendKeys(currentAddress);
+        this.getPermanent_Address().sendKeys(permanentAddress);
         this.getSUBMIT_BUTTON().click();
-        Thread.sleep(2000);
+        Thread.sleep(5000);
+
+        return lstEnteredValues;
+
     }
-    public void verifyFilledFormsValues() {
-        List<String> lstVals = new ArrayList<>();
-        lstVals.add(super.splitByСolonTakeSecondElement(super.elementIsPresent(CREATED_FULL_NAME).getText()));
-        lstVals.add(super.splitByСolonTakeSecondElement(super.elementIsPresent(CREATED_EMAIL).getText()));
-        lstVals.add(super.splitByСolonTakeSecondElement(super.elementIsPresent(CREATED_CURRENT_ADDRESS).getText()));
-        lstVals.add(super.splitByСolonTakeSecondElement(super.elementIsPresent(CREATED_Permanent_Address).getText()));
-        for (String item : lstVals) {
-            System.out.println(item);
+
+    public List<String> verifyFilledFormsValues() {
+        List<String> lstvVerifiedVals = new ArrayList<>();
+        lstvVerifiedVals.add(super.splitByСolonTakeSecondElement(super.elementIsVisible(CREATED_FULL_NAME).getText()));
+        lstvVerifiedVals.add(super.splitByСolonTakeSecondElement(super.elementIsVisible(CREATED_EMAIL).getText()));
+        lstvVerifiedVals.add(super.splitByСolonTakeSecondElement(super.elementIsVisible(CREATED_CURRENT_ADDRESS).getText()));
+        lstvVerifiedVals.add(super.splitByСolonTakeSecondElement(super.elementIsVisible(CREATED_Permanent_Address).getText()));
+
+        return lstvVerifiedVals;
+    }
+
+    public String compareSubmitAndReceivedData(List<String> lstEnteredValues, List<String> lstvVerifiedVals) {
+        if (lstEnteredValues.size() == lstvVerifiedVals.size()) {
+            for (int i = 0; i < lstEnteredValues.size(); i++) {
+                if (lstEnteredValues.get(i).equals(lstvVerifiedVals.get(i))) {
+                    System.out.println(lstEnteredValues.get(i)+" Равно "+lstvVerifiedVals.get(i));
+                } else {
+                    System.out.println(lstEnteredValues.get(i)+" NO equal "+lstvVerifiedVals.get(i));
+                    return "Yes";
+                }
+            }
         }
-
-
+        return null;
     }
 
 

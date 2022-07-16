@@ -57,32 +57,32 @@ public class BasePage {
     }
 
     public WebElement elementIsVisible(By locator) {
-        wait = new WebDriverWait(driver, Duration.ofSeconds(40));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
     public List<WebElement> elementAreVisible(By locator) {
-        wait = new WebDriverWait(driver, Duration.ofSeconds(40));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         return wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(locator));
     }
 
     public WebElement elementIsPresent(By locator) {
-        wait = new WebDriverWait(driver, Duration.ofSeconds(40));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
     }
 
     public List<WebElement> elementArePresent(By locator) {
-        wait = new WebDriverWait(driver, Duration.ofSeconds(40));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         return wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(locator));
     }
 
     public Boolean elementIsNotVisible(By locator) {
-        wait = new WebDriverWait(driver, Duration.ofSeconds(40));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         return wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
     }
 
     public WebElement elementIsClickable(By locator) {
-        wait = new WebDriverWait(driver, Duration.ofSeconds(40));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         return wait.until(ExpectedConditions.elementToBeClickable(locator));
     }
 
@@ -95,7 +95,7 @@ public class BasePage {
         for (String retval : strText.split(":")) {
             listValue.add(retval);
         }
-        return listValue.get(1);
+        return listValue.get(0);
     }
 
 
