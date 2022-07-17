@@ -40,8 +40,14 @@ public class ElementTest extends BasePage {
         Assert.assertEquals(egg,null,"There is mismatch");
     }
 
+    @Test
+    public void testCheckPage() {
+
+    }
+
     @AfterTest
     public void tearDown() {
+
         driver.close();
         driver = null;
     }

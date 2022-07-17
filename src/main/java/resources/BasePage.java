@@ -95,7 +95,7 @@ public class BasePage {
         for (String retval : strText.split(":")) {
             listValue.add(retval);
         }
-        return listValue.get(0);
+        return listValue.get(1);
     }
 
 
