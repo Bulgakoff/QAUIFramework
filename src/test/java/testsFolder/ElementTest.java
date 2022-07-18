@@ -2,11 +2,13 @@ package testsFolder;
 
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+import pagesLocators.CheckBoxPage;
 import pagesLocators.TextBoxPage;
 import resources.BasePage;
 
@@ -18,6 +20,7 @@ public class ElementTest extends BasePage {
     private WebDriverWait wait;
     public WebDriver driver;
     TextBoxPage txp;
+    CheckBoxPage chp;
 
 
     @BeforeTest
@@ -28,7 +31,7 @@ public class ElementTest extends BasePage {
 
     @Test
     public void testPage() throws InterruptedException, IOException {
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(40));
+//        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(40));
         wait = new WebDriverWait(driver, Duration.ofSeconds(40));
         driver.get(properties.getProperty("url"));
         txp = new TextBoxPage(driver);
@@ -41,8 +44,15 @@ public class ElementTest extends BasePage {
     }
 
     @Test
-    public void testCheckPage() {
+    public void testCheckPage() throws InterruptedException {
+        wait = new WebDriverWait(driver, Duration.ofSeconds(40));
+        driver.get("https://demoqa.com/checkbox");
+        chp = new CheckBoxPage(driver);
 
+        chp.openAllPageElements();
+        Thread.sleep(1000);
+        List<WebElement> list = chp.getITEM_LIST();
+        chp.getRandomCheckBox(list);
     }
 
     @AfterTest

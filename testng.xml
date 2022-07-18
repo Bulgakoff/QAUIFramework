@@ -5,5 +5,8 @@
         <classes>
             <class name="testsFolder.ElementTest"></class>
         </classes>
+<!--        <classes>-->
+<!--            <class name="testsFolder."></class>-->
+<!--        </classes>-->
     </test>
 </suite>
