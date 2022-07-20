@@ -40,7 +40,7 @@ public class ElementTest extends BasePage {
         makeScreenshot();
         List<String> lstVerifiedVals = txp.verifyFilledFormsValues();
         String egg = txp.compareSubmitAndReceivedData(filledValueLst, lstVerifiedVals);
-        Assert.assertEquals(egg,null,"There is mismatch");
+        Assert.assertEquals(egg, null, "There is mismatch");
     }
 
     @Test
@@ -53,6 +53,11 @@ public class ElementTest extends BasePage {
         Thread.sleep(1000);
         List<WebElement> list = chp.getITEM_LIST();
         chp.getRandomCheckBox(list);
+        List<String> inputCheckBox = chp.getCheckedItemsList();
+        List<String> outputCheckBox = chp.getOutputResultList();
+        System.out.println(inputCheckBox);
+        System.out.println(outputCheckBox);
+        Assert.assertEquals(inputCheckBox,outputCheckBox);
     }
 
     @AfterTest
