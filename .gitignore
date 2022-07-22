@@ -3,6 +3,7 @@
 ## Java
 ##############################
 .mtj.tmp/
+debugFolder/
 *.class
 *.jar
 *.war

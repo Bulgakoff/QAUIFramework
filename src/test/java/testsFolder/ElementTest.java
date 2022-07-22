@@ -53,8 +53,8 @@ public class ElementTest extends BasePage {
         Thread.sleep(1000);
         List<WebElement> list = chp.getITEM_LIST();
         chp.getRandomCheckBox(list);
-        List<String> inputCheckBox = chp.getCheckedItemsList();
-        List<String> outputCheckBox = chp.getOutputResultList();
+        String[] inputCheckBox = chp.getCheckedItemsList();
+        String[] outputCheckBox = chp.getOutputResultList();
         System.out.println(inputCheckBox);
         System.out.println(outputCheckBox);
         Assert.assertEquals(inputCheckBox,outputCheckBox);

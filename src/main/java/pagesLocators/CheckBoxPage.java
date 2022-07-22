@@ -65,21 +65,32 @@ public class CheckBoxPage extends BasePage {
             }
         }
     }
-    public List<String> getCheckedItemsList() {
+    public String[] getCheckedItemsList() {
         List<WebElement> elements = this.getCHECKED_ITEMS();
         List<String> listData = new ArrayList<>();
         for (WebElement box : elements) {
             WebElement title_item = box.findElement(this.TITLE_ITEMS);
             listData.add(title_item.getText());
         }
-        return listData;
+        String[] stringsData1 = new String[listData.size()];
+        for (int i = 0; i < listData.size(); i++) {
+            stringsData1[i] = listData.get(i).replace(" ", "").
+                    replace("doc", "").
+                    replace(".", "").toLowerCase();
+        }
+
+        return stringsData1;
     }
-    public List<String> getOutputResultList() {
+    public  String[] getOutputResultList() {
         List<WebElement> elements = this.getOUTPUT_RESULT_LIST();
         List<String> listData = new ArrayList<>();
         for (WebElement item : elements) {
             listData.add(item.getText());
         }
-        return listData;
+        String[] stringsData2 = new String[listData.size()];
+        for (int i = 0; i < listData.size(); i++) {
+            stringsData2[i] = listData.get(i).replace(" ","").toLowerCase();
+        }
+        return stringsData2;
     }
 }
