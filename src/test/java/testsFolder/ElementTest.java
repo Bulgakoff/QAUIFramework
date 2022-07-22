@@ -3,24 +3,24 @@ package testsFolder;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import pagesLocators.CheckBoxPage;
+import pagesLocators.RadioButtonPage;
 import pagesLocators.TextBoxPage;
 import resources.BasePage;
 
 import java.io.IOException;
-import java.time.Duration;
 import java.util.List;
 
 public class ElementTest extends BasePage {
-    private WebDriverWait wait;
+//    private WebDriverWait wait;
     public WebDriver driver;
     TextBoxPage txp;
     CheckBoxPage chp;
+    RadioButtonPage rbp;
 
 
     @BeforeTest
@@ -32,7 +32,7 @@ public class ElementTest extends BasePage {
     @Test
     public void testPage() throws InterruptedException, IOException {
 //        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(40));
-        wait = new WebDriverWait(driver, Duration.ofSeconds(40));
+//        wait = new WebDriverWait(driver, Duration.ofSeconds(40));
         driver.get(properties.getProperty("url"));
         txp = new TextBoxPage(driver);
 
@@ -45,7 +45,7 @@ public class ElementTest extends BasePage {
 
     @Test
     public void testCheckPage() throws InterruptedException {
-        wait = new WebDriverWait(driver, Duration.ofSeconds(40));
+//        wait = new WebDriverWait(driver, Duration.ofSeconds(40));
         driver.get("https://demoqa.com/checkbox");
         chp = new CheckBoxPage(driver);
 
@@ -55,14 +55,26 @@ public class ElementTest extends BasePage {
         chp.getRandomCheckBox(list);
         String[] inputCheckBox = chp.getCheckedItemsList();
         String[] outputCheckBox = chp.getOutputResultList();
-        System.out.println(inputCheckBox);
-        System.out.println(outputCheckBox);
-        Assert.assertEquals(inputCheckBox,outputCheckBox);
+        Assert.assertEquals(inputCheckBox,outputCheckBox,"chrckboxes have not been selected");
+    }
+    @Test
+    public void testRadioButtinPage() {
+        driver.get("https://demoqa.com/radio-button");
+        rbp = new RadioButtonPage(driver);
+        rbp.clickOnRadioButton("y");
+        String outYes = rbp.getSuccessWordOutResults();
+        rbp.clickOnRadioButton("i");
+        String outImpressive = rbp.getSuccessWordOutResults();
+        rbp.clickOnRadioButton("no");
+        String outNo = rbp.getSuccessWordOutResults();
+        Assert.assertEquals(outYes,"Yes","Yes have not been selected");
+        Assert.assertEquals(outImpressive,"Impressive", "Impressive have not been selected");
+        Assert.assertEquals(outNo,"No", "No have not been selected");
+
     }
 
     @AfterTest
     public void tearDown() {
-
         driver.close();
         driver = null;
     }
