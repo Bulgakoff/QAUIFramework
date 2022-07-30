@@ -39,8 +39,6 @@ public class WebTablePage extends BasePage {
     }
 
     //methods class getters:
-
-
     public WebElement getDELETE_BUTTON() {
         return elementIsVisible(DELETE_BUTTON);
     }
@@ -151,30 +149,32 @@ public class WebTablePage extends BasePage {
         WebElement row = deleteButton.findElement(ROW_PARENT);//pass to parent element inside found block
         return row.getText().split(",(?! )");
     }
-    public String convertStringToArrayAndGetRandomItem(String addNewStr ) {
+
+    public String convertStringToArrayAndGetRandomItem(String addNewStr) {
         String[] addedNewList = addNewStr.split("\n");
         String keyWord = addedNewList[(int) (Math.random() * 5)];
         return keyWord;
     }
-   public void convertDataIntoNewArrayCompareSearchWord(String[] arrStr, String keyWord) {
-       String arrayStringToString = Arrays.toString(arrStr);
-       String[] asd = arrayStringToString.split("\n");
-       // полаучили без скобок  массив:
-       List<String> newAsd = new ArrayList<>();
-       for (String qwe : asd) {
-           newAsd.add(qwe.
-                   replace("[", "").
-                   replace("]", ""));
-       }
-       // получили без скобок  массив:
-       System.out.println(newAsd);
-       for (String zzz : newAsd) {
-           if (zzz.equals(keyWord)) {
-               System.out.println("matched word");
-               break;
-           } else {
-               System.out.println("Нет совпадений");
-           }
-       }
-   }
+
+    public void convertDataIntoNewArrayCompareSearchWord(String[] arrStr, String keyWord) {
+        String arrayStringToString = Arrays.toString(arrStr);
+        String[] asd = arrayStringToString.split("\n");
+        // полаучили без скобок  массив:
+        List<String> newAsd = new ArrayList<>();
+        for (String qwe : asd) {
+            newAsd.add(qwe.
+                    replace("[", "").
+                    replace("]", ""));
+        }
+        // получили без скобок  массив:
+        System.out.println(newAsd);
+        for (String zzz : newAsd) {
+            if (zzz.equals(keyWord)) {
+                System.out.println("matched word");
+                break;
+            } else {
+                System.out.println("Нет совпадений");
+            }
+        }
+    }
 }
