@@ -10,17 +10,19 @@ import org.testng.annotations.Test;
 import pagesLocators.CheckBoxPage;
 import pagesLocators.RadioButtonPage;
 import pagesLocators.TextBoxPage;
+import pagesLocators.WebTablePage;
 import resources.BasePage;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.*;
 
 public class ElementTest extends BasePage {
-//    private WebDriverWait wait;
+    //    private WebDriverWait wait;
     public WebDriver driver;
     TextBoxPage txp;
     CheckBoxPage chp;
     RadioButtonPage rbp;
+    WebTablePage wtp;
 
 
     @BeforeTest
@@ -55,8 +57,9 @@ public class ElementTest extends BasePage {
         chp.getRandomCheckBox(list);
         String[] inputCheckBox = chp.getCheckedItemsList();
         String[] outputCheckBox = chp.getOutputResultList();
-        Assert.assertEquals(inputCheckBox,outputCheckBox,"chrckboxes have not been selected");
+        Assert.assertEquals(inputCheckBox, outputCheckBox, "chrckboxes have not been selected");
     }
+
     @Test
     public void testRadioButtinPage() {
         driver.get("https://demoqa.com/radio-button");
@@ -67,11 +70,32 @@ public class ElementTest extends BasePage {
         String outImpressive = rbp.getSuccessWordOutResults();
         rbp.clickOnRadioButton("no");
         String outNo = rbp.getSuccessWordOutResults();
-        Assert.assertEquals(outYes,"Yes","Yes have not been selected");
-        Assert.assertEquals(outImpressive,"Impressive", "Impressive have not been selected");
-        Assert.assertEquals(outNo,"No", "No have not been selected");
+        Assert.assertEquals(outYes, "Yes", "Yes have not been selected");
+        Assert.assertEquals(outImpressive, "Impressive", "Impressive have not been selected");
+        Assert.assertEquals(outNo, "No", "No have not been selected");
+    }
+
+    @Test
+    public void testWebTablePageAddPerson() throws InterruptedException, IOException {
+        driver.get("https://demoqa.com/webtables");
+        wtp = new WebTablePage(driver);
+        String addNew = wtp.addNewPersonWT();
+        List<String> checkNew = wtp.checkNewAddedPeople();
+        Assert.assertEquals(addNew, checkNew.get(3));
+    }
+
+    @Test
+    public void testWebTableSearchPerson() throws InterruptedException {
+        driver.get("https://demoqa.com/webtables");
+        wtp = new WebTablePage(driver);
+        String addNewStr = wtp.addNewPersonWT();
+        String keyWord = wtp.convertStringToArrayAndGetRandomItem(addNewStr);
+        wtp.searchSomePerson(keyWord);
+        String[] arrStr = wtp.checkSearchPerson();
+        wtp.convertDataIntoNewArrayCompareSearchWord(arrStr, keyWord);
 
     }
+
 
     @AfterTest
     public void tearDown() {
