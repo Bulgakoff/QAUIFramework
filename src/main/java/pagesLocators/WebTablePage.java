@@ -15,6 +15,7 @@ import java.util.Locale;
 public class WebTablePage extends BasePage {
     //attributes Class: locators for  field:
     public WebDriver driver;
+    String agee = String.valueOf((int) Math.round(10 + Math.random() * 90));
     private By ADD_BUTTON = By.cssSelector("button[id='addNewRecordButton']");//
     private By FIRSTNAME_INPUT = By.cssSelector("input[id='firstName']");//
     private By LASTNAME_INPUT = By.cssSelector("input[id='lastName']");//
@@ -32,6 +33,8 @@ public class WebTablePage extends BasePage {
 
     //tables:
     private By FULL_PEOPLE_LIST = By.cssSelector("div[class='rt-tr-group']");//
+   //update:
+    private By BUTTON_EDIT = By.cssSelector("span[title='Edit']");//
 
     //constructor:
     public WebTablePage(WebDriver driver) {
@@ -83,12 +86,20 @@ public class WebTablePage extends BasePage {
         return elementArePresent(FULL_PEOPLE_LIST);
     }
 
+    public WebElement getBUTTON_EDIT() {
+        return elementIsPresent(BUTTON_EDIT);
+    }
+
+    public WebElement getROW_PARENT() {
+        return elementIsPresent(ROW_PARENT);
+    }
+
     //others methods:
     public String addNewPersonWT() {
 //        Random random = new Random();
         double salaryy = 10000 + Math.random() * 100000;
         int sal2 = (int) Math.round(salaryy);
-        int agee = (int) Math.round(10 + Math.random() * 90);
+//        agee = (int) Math.round(10 + Math.random() * 90);
 
         // Настройка языка, регион
         Locale locale = new Locale("ru", "RU");
@@ -98,7 +109,7 @@ public class WebTablePage extends BasePage {
 
         String firstName = faker.name().firstName();
         String lastName = faker.name().lastName();
-        String age = String.valueOf(agee);
+//        String age = String.valueOf(agee);
         String email = "faker@email.ru";
         String salary = String.valueOf(sal2);
         String department = faker.company().name();
@@ -107,7 +118,7 @@ public class WebTablePage extends BasePage {
 
         getFIRSTNAME_INPUT().sendKeys(firstName);
         getLASTNAME_INPUT().sendKeys(lastName);
-        getAGE_INPUT().sendKeys(age);
+        getAGE_INPUT().sendKeys(agee);
         getEMAIL_INPUT().sendKeys(email);
         getSALARY_INPUT().sendKeys(salary);
         getDEPARTMENT_INPUT().sendKeys(department);
@@ -115,7 +126,7 @@ public class WebTablePage extends BasePage {
 
         listAddedValuesWT.add(firstName);
         listAddedValuesWT.add(lastName);
-        listAddedValuesWT.add(age);
+        listAddedValuesWT.add(agee);
         listAddedValuesWT.add(email);
         listAddedValuesWT.add(salary);
         listAddedValuesWT.add(department);
@@ -155,6 +166,11 @@ public class WebTablePage extends BasePage {
         String keyWord = addedNewList[(int) (Math.random() * 5)];
         return keyWord;
     }
+    public String[] convertStringToArray(String addNewStr){
+//        String arrayStringToString = Arrays.toString(addNewStr);
+        String[] addedNewList = addNewStr.split("\n");
+        return addedNewList;
+    }
 
     public void convertDataIntoNewArrayCompareSearchWord(String[] arrStr, String keyWord) {
         String arrayStringToString = Arrays.toString(arrStr);
@@ -176,5 +192,12 @@ public class WebTablePage extends BasePage {
                 System.out.println("Нет совпадений");
             }
         }
+    }
+
+    public String updatePersonInfo() {
+        getBUTTON_EDIT().click();
+        getAGE_INPUT().sendKeys(agee);
+        getSUBMIT_BUTTON().click();
+        return agee;
     }
 }

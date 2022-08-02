@@ -96,6 +96,24 @@ public class ElementTest extends BasePage {
 
     }
 
+    @Test
+    public void testUpdateWebPerson() throws InterruptedException {
+        driver.get("https://demoqa.com/webtables");
+        wtp = new WebTablePage(driver);
+        String addNewStr = wtp.addNewPersonWT();
+        String lastName = wtp.convertStringToArray(addNewStr)[1];
+        wtp.searchSomePerson(lastName);
+        String age = wtp.updatePersonInfo();
+        String[] arr = wtp.convertStringToArray(addNewStr);
+
+        for (String qwe : arr) {
+            if (age.equals(qwe)) {
+                System.out.println("age matched");
+            }
+        }
+
+    }
+ 
 
     @AfterTest
     public void tearDown() {
