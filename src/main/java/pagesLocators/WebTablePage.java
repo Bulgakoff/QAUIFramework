@@ -30,6 +30,7 @@ public class WebTablePage extends BasePage {
     //span[title='Delete']
     private By DELETE_BUTTON = By.cssSelector("span[title='Delete']");//
     private By ROW_PARENT = By.xpath(".//ancestor::div[@class='rt-tr-group']");
+    private By NODATA_MESSAGE = By.cssSelector("div[class='rt-noData']");//
 
     //tables:
     private By FULL_PEOPLE_LIST = By.cssSelector("div[class='rt-tr-group']");//
@@ -42,6 +43,11 @@ public class WebTablePage extends BasePage {
     }
 
     //methods class getters:
+
+    public WebElement getNODATA_MESSAGE() {
+        return elementIsPresent(NODATA_MESSAGE);
+    }
+
     public WebElement getDELETE_BUTTON() {
         return elementIsVisible(DELETE_BUTTON);
     }
@@ -199,5 +205,11 @@ public class WebTablePage extends BasePage {
         getAGE_INPUT().sendKeys(agee);
         getSUBMIT_BUTTON().click();
         return agee;
+    }
+    public void deletePersonInfo() {
+        getDELETE_BUTTON().click();
+    }
+    public String checkDeleteText() {
+        return getNODATA_MESSAGE().getText();
     }
 }

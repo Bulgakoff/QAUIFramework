@@ -105,12 +105,19 @@ public class ElementTest extends BasePage {
         wtp.searchSomePerson(lastName);
         String age = wtp.updatePersonInfo();
         String[] arr = wtp.convertStringToArray(addNewStr);
+        Assert.assertEquals(age, arr[2], "Совпадения не найдено");
+    }
+    @Test
+    public void testDeleteWebPerson() throws InterruptedException {
+        driver.get("https://demoqa.com/webtables");
+        wtp = new WebTablePage(driver);
+        String addNewStr = wtp.addNewPersonWT();
+        String email = wtp.convertStringToArray(addNewStr)[3];
+        wtp.searchSomePerson(email);
+        wtp.deletePersonInfo();
+        String text = wtp.checkDeleteText();
 
-        for (String qwe : arr) {
-            if (age.equals(qwe)) {
-                System.out.println("age matched");
-            }
-        }
+        Assert.assertEquals(text, "No rows found", "No matches  No rows found ");
 
     }
  
