@@ -13,9 +13,10 @@ import java.util.List;
 import java.util.Locale;
 
 public class WebTablePage extends BasePage {
-    //attributes Class: locators for  field:
+    //attributes Class:
     public WebDriver driver;
     String agee = String.valueOf((int) Math.round(10 + Math.random() * 90));
+    // locators for  field:
     private By ADD_BUTTON = By.cssSelector("button[id='addNewRecordButton']");//
     private By FIRSTNAME_INPUT = By.cssSelector("input[id='firstName']");//
     private By LASTNAME_INPUT = By.cssSelector("input[id='lastName']");//
@@ -34,8 +35,10 @@ public class WebTablePage extends BasePage {
 
     //tables:
     private By FULL_PEOPLE_LIST = By.cssSelector("div[class='rt-tr-group']");//
-   //update:
+    //update:
     private By BUTTON_EDIT = By.cssSelector("span[title='Edit']");//
+
+    private By COUNT_ROW_LIST = By.cssSelector("select[aria-label='rows per page']");//
 
     //constructor:
     public WebTablePage(WebDriver driver) {
@@ -43,6 +46,11 @@ public class WebTablePage extends BasePage {
     }
 
     //methods class getters:
+
+
+    public WebElement getCOUNT_ROW_LIST() {
+        return elementIsPresent(COUNT_ROW_LIST);
+    }
 
     public WebElement getNODATA_MESSAGE() {
         return elementIsPresent(NODATA_MESSAGE);
@@ -172,7 +180,8 @@ public class WebTablePage extends BasePage {
         String keyWord = addedNewList[(int) (Math.random() * 5)];
         return keyWord;
     }
-    public String[] convertStringToArray(String addNewStr){
+
+    public String[] convertStringToArray(String addNewStr) {
 //        String arrayStringToString = Arrays.toString(addNewStr);
         String[] addedNewList = addNewStr.split("\n");
         return addedNewList;
@@ -206,10 +215,37 @@ public class WebTablePage extends BasePage {
         getSUBMIT_BUTTON().click();
         return agee;
     }
+
     public void deletePersonInfo() {
         getDELETE_BUTTON().click();
     }
+
     public String checkDeleteText() {
         return getNODATA_MESSAGE().getText();
     }
+    public ArrayList<Integer> getListPages() {
+        ArrayList<Integer> countArr = new ArrayList<>();
+        countArr.add(5);
+        countArr.add(10);
+        countArr.add(20);
+        countArr.add(50);
+        countArr.add(100);
+        return countArr;
+    }
+    public ArrayList<Integer> selectUpToSomeRow(ArrayList<Integer> countArr) {
+        ArrayList<Integer> dataList = new ArrayList<>();
+        for (int qwe : countArr) {
+            WebElement countRowButton = getCOUNT_ROW_LIST();
+            goToElement(countRowButton);
+            countRowButton.click();
+            elementIsVisible(By.cssSelector("option[value='"+ qwe +"']")).click();
+            dataList.add(checkCountRows());
+        }
+        return dataList;
+    }
+
+    public int checkCountRows() {
+        return getFULL_PEOPLE_LIST().size();
+    }
+
 }

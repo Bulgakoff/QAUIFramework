@@ -97,7 +97,7 @@ public class ElementTest extends BasePage {
     }
 
     @Test
-    public void testUpdateWebPerson() throws InterruptedException {
+    public void testWebTableUpdateWebPerson() throws InterruptedException {
         driver.get("https://demoqa.com/webtables");
         wtp = new WebTablePage(driver);
         String addNewStr = wtp.addNewPersonWT();
@@ -108,7 +108,7 @@ public class ElementTest extends BasePage {
         Assert.assertEquals(age, arr[2], "Совпадения не найдено");
     }
     @Test
-    public void testDeleteWebPerson() throws InterruptedException {
+    public void testWebTableDeleteWebPerson() throws InterruptedException {
         driver.get("https://demoqa.com/webtables");
         wtp = new WebTablePage(driver);
         String addNewStr = wtp.addNewPersonWT();
@@ -119,6 +119,14 @@ public class ElementTest extends BasePage {
 
         Assert.assertEquals(text, "No rows found", "No matches  No rows found ");
 
+    }
+    @Test
+    public void testWebTableChangeCountRow() {
+        driver.get("https://demoqa.com/webtables");
+        wtp = new WebTablePage(driver);
+        ArrayList<Integer> listPages = wtp.getListPages();
+        ArrayList<Integer> countArrayList = wtp.selectUpToSomeRow(listPages);
+        Assert.assertEquals(countArrayList, listPages, "There is don't matched number oof the row");
     }
  
 
