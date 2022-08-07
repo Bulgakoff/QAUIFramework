@@ -7,10 +7,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-import pagesLocators.CheckBoxPage;
-import pagesLocators.RadioButtonPage;
-import pagesLocators.TextBoxPage;
-import pagesLocators.WebTablePage;
+import pagesLocators.*;
 import resources.BasePage;
 
 import java.io.IOException;
@@ -23,6 +20,7 @@ public class ElementTest extends BasePage {
     CheckBoxPage chp;
     RadioButtonPage rbp;
     WebTablePage wtp;
+    ButtonsPage btnP;
 
 
     @BeforeTest
@@ -127,6 +125,21 @@ public class ElementTest extends BasePage {
         ArrayList<Integer> listPages = wtp.getListPages();
         ArrayList<Integer> countArrayList = wtp.selectUpToSomeRow(listPages);
         Assert.assertEquals(countArrayList, listPages, "There is don't matched number oof the row");
+    }
+    @Test
+    public void testDifferentClickOnTheBtns() {
+        driver.get("https://demoqa.com/buttons");
+        btnP = new ButtonsPage(driver);
+        String doubleClick = btnP.clickOnDifferentBnts("double");
+        String rightClick = btnP.clickOnDifferentBnts("right");
+        String simpleClick = btnP.clickOnDifferentBnts("click");
+//        System.out.println(doubleClick);
+//        System.out.println(rightClick);
+//        System.out.println(simpleClick);
+        Assert.assertEquals(doubleClick,"You have done a double click");
+        Assert.assertEquals(rightClick,"You have done a right click");
+        Assert.assertEquals(simpleClick,"You have done a dynamic click");
+
     }
  
 

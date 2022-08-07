@@ -4,6 +4,7 @@ import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -97,6 +98,24 @@ public class BasePage {
         }
         return listValue.get(1);
     }
+
+    public void actionDoubleClick(WebElement element) {
+        Actions actions = new Actions(driver);
+        actions.doubleClick(element);
+        actions.perform();
+    }
+    public void actionRightClick(WebElement element) {
+        Actions actions = new Actions(driver);
+        actions.contextClick(element);
+        actions.perform();
+    }
+    public void actionSimpleClick(WebElement element) {
+        Actions actions = new Actions(driver);
+        actions.click(element);
+        actions.perform();
+    }
+
+
 
 
 }
