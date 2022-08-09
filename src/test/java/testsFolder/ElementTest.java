@@ -21,6 +21,7 @@ public class ElementTest extends BasePage {
     RadioButtonPage rbp;
     WebTablePage wtp;
     ButtonsPage btnP;
+    LinksPage linksPage;
 
 
     @BeforeTest
@@ -105,6 +106,7 @@ public class ElementTest extends BasePage {
         String[] arr = wtp.convertStringToArray(addNewStr);
         Assert.assertEquals(age, arr[2], "Совпадения не найдено");
     }
+
     @Test
     public void testWebTableDeleteWebPerson() throws InterruptedException {
         driver.get("https://demoqa.com/webtables");
@@ -118,6 +120,7 @@ public class ElementTest extends BasePage {
         Assert.assertEquals(text, "No rows found", "No matches  No rows found ");
 
     }
+
     @Test
     public void testWebTableChangeCountRow() {
         driver.get("https://demoqa.com/webtables");
@@ -126,6 +129,7 @@ public class ElementTest extends BasePage {
         ArrayList<Integer> countArrayList = wtp.selectUpToSomeRow(listPages);
         Assert.assertEquals(countArrayList, listPages, "There is don't matched number oof the row");
     }
+
     @Test
     public void testDifferentClickOnTheBtns() {
         driver.get("https://demoqa.com/buttons");
@@ -136,12 +140,31 @@ public class ElementTest extends BasePage {
 //        System.out.println(doubleClick);
 //        System.out.println(rightClick);
 //        System.out.println(simpleClick);
-        Assert.assertEquals(doubleClick,"You have done a double click");
-        Assert.assertEquals(rightClick,"You have done a right click");
-        Assert.assertEquals(simpleClick,"You have done a dynamic click");
+        Assert.assertEquals(doubleClick, "You have done a double click");
+        Assert.assertEquals(rightClick, "You have done a right click");
+        Assert.assertEquals(simpleClick, "You have done a dynamic click");
 
     }
- 
+
+    //
+    @Test
+    public void testCheckLinks() throws IOException {
+        driver.get("https://demoqa.com/links");
+        linksPage = new LinksPage(driver);
+        int respCode = linksPage.checkNewTabSimpleLink();
+        Assert.assertEquals(respCode, 200);
+
+    }
+    @Test
+    public void testBrokenLinks() throws IOException {
+        driver.get("https://demoqa.com/links");
+        linksPage = new LinksPage(driver);
+        int respCode = linksPage.checkNewTabBrokenLink("https://demoqa.com/bad-request");
+        Assert.assertEquals(respCode,400);
+
+
+
+    }
 
     @AfterTest
     public void tearDown() {
