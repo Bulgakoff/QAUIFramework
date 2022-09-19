@@ -15,6 +15,8 @@ public class LinksPage extends BasePage {
     // locators for  field:
     private By SIMPLE_LINK = By.cssSelector("a[id='simpleLink']");
     private By BAD_REQUEST = By.cssSelector("a[id='bad-request']");
+    //p[@id='linkResponse']/b[1]
+    private By LINK_RESPONSE = By.xpath("//p[@id='linkResponse']/b[1]");
 
     //constructor:
     public LinksPage(WebDriver driver) {
@@ -31,6 +33,11 @@ public class LinksPage extends BasePage {
         return elementIsPresent(BAD_REQUEST);
     }
 
+    public WebElement getLINK_RESPONSE() {
+        return elementIsPresent(LINK_RESPONSE);
+    }
+
+    //others methods:
     public int connection(String linkHref, WebElement simpleLink) throws IOException {
         HttpURLConnection conn = (HttpURLConnection) new URL(linkHref).openConnection();
         conn.setRequestMethod("HEAD");
@@ -44,8 +51,6 @@ public class LinksPage extends BasePage {
             return responseCode;
         }
     }
-
-    //others methods:
     public int checkNewTabSimpleLink() throws IOException {
         WebElement simpleLink = getSIMPLE_LINK();
         String linkHref = simpleLink.getAttribute("href");
