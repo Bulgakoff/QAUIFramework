@@ -22,6 +22,7 @@ public class ElementTest extends BasePage {
     WebTablePage wtp;
     ButtonsPage btnP;
     LinksPage linksPage;
+    UploadDownloadPage upDownloadPage;
 
 
     @BeforeTest
@@ -161,7 +162,20 @@ public class ElementTest extends BasePage {
         linksPage = new LinksPage(driver);
         int respCode = linksPage.checkNewTabBrokenLink("https://demoqa.com/bad-request");
         Assert.assertEquals(respCode,400);
+    }
 
+    @Test
+    public void testUploadfile() throws IOException {
+        driver.get("https://demoqa.com/upload-download");
+        upDownloadPage = new UploadDownloadPage(driver);
+        upDownloadPage.generatedFile();
+
+
+    }
+    @Test
+    public void testDownloadfile() {
+        driver.get("https://demoqa.com/upload-download");
+        upDownloadPage = new UploadDownloadPage(driver);
 
 
     }
