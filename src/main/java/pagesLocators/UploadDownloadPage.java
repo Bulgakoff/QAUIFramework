@@ -2,23 +2,20 @@ package pagesLocators;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import resources.BasePage;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.util.ArrayList;
 
 public class UploadDownloadPage extends BasePage {
     //attributes Class:
     public WebDriver driver;
     // locators for  field:
-//    private By SIMPLE_LINK = By.cssSelector("a[id='simpleLink']");
+    private By UPLOAD_FILE = By.cssSelector("input[id='uploadFile']");
 
     //constructor:
-
     public UploadDownloadPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -27,20 +24,29 @@ public class UploadDownloadPage extends BasePage {
     //methods class getters:
 
     //others methods:
-    public void uploadfile() {
+    public void uploadfile() throws IOException {
+        ArrayList lstPF = generatedFile();
+        elementIsPresent(UPLOAD_FILE).sendKeys((CharSequence) lstPF.get(0));
     }
 
     public void downloadfile() {
     }
 
-    public void generatedFile() throws IOException {
-        double salaryy = 1 + Math.random() * 100;
-        int sal2 = (int) Math.round(salaryy);
-        System.out.println(sal2);
-        File file = new File("C:\\Users\\user\\IdeaProjects\\QAUIFramework\\qwe\\testFile"+sal2+".txt");
+    public ArrayList<String> generatedFile() throws IOException {
+        ArrayList<String> lstPathFilName = new ArrayList<>();
+
+        double randomPath = 1 + Math.random() * 100;
+        int randomPathInt = (int) Math.round(randomPath);
+        System.out.println(randomPathInt);
+        String path = "C:\\Users\\user\\IdeaProjects\\QAUIFramework\\qwe\\testFile" + randomPathInt + ".txt";
+        File file = new File(path.trim());
+        String fileName = file.getName();
+        System.out.println("fileName = " + fileName);
 //create the file.
         if (file.createNewFile()){
             System.out.println("File is created!");
+            lstPathFilName.add(path);
+            lstPathFilName.add(fileName);
         }
         else{
             System.out.println("File already exists.");
@@ -49,6 +55,7 @@ public class UploadDownloadPage extends BasePage {
         FileWriter writer = new FileWriter (file);
         writer.write("Test data");
         writer.close();
+        return lstPathFilName;
     }
 
 

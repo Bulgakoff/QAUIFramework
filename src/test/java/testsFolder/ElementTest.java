@@ -165,10 +165,11 @@ public class ElementTest extends BasePage {
     }
 
     @Test
-    public void testUploadfile() throws IOException {
+    public void testUploadfile() throws IOException, InterruptedException {
         driver.get("https://demoqa.com/upload-download");
         upDownloadPage = new UploadDownloadPage(driver);
-        upDownloadPage.generatedFile();
+        upDownloadPage.uploadfile();
+        makeScreenshot();
 
 
     }
@@ -181,7 +182,7 @@ public class ElementTest extends BasePage {
     }
 
     @AfterTest
-    public void tearDown() {
+    public void tearDown() throws InterruptedException {
         driver.close();
         driver = null;
     }
