@@ -168,8 +168,10 @@ public class ElementTest extends BasePage {
     public void testUploadfile() throws IOException, InterruptedException {
         driver.get("https://demoqa.com/upload-download");
         upDownloadPage = new UploadDownloadPage(driver);
-        upDownloadPage.uploadfile();
+        int rInt = upDownloadPage.randomNum();
+        ArrayList<String> lstNameAndText=upDownloadPage.uploadfile(rInt);
         makeScreenshot();
+        Assert.assertEquals(lstNameAndText.get(0),lstNameAndText.get(1));
 
 
     }
@@ -177,8 +179,6 @@ public class ElementTest extends BasePage {
     public void testDownloadfile() {
         driver.get("https://demoqa.com/upload-download");
         upDownloadPage = new UploadDownloadPage(driver);
-
-
     }
 
     @AfterTest
